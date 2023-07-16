@@ -1,0 +1,19 @@
+[
+  {
+    "listing": "/data_vis.html",
+    "items": [
+      "/data_vis/vfsg-dwf/index.html",
+      "/data_vis/epilepsy_abnormalities/index.html",
+      "/data_vis/tidytuesday/index.html",
+      "/data_vis/vfsg-who/index.html",
+      "/data_vis/gardening-covid/index.html"
+    ]
+  },
+  {
+    "listing": "/gen_art.html",
+    "items": [
+      "/gen_art/apertures/index.html",
+      "/gen_art/drifts/index.html"
+    ]
+  }
+]
