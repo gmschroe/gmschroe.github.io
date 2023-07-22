@@ -3,8 +3,7 @@
     "listing": "/data_vis.html",
     "items": [
       "/data_vis/vfsg-dwf/index.html",
-      "/data_vis/epilepsy_abnormalities/index.html",
-      "/data_vis/tidytuesday/index.html",
+      "/data_vis/tidy-tuesday/index.html",
       "/data_vis/vfsg-who/index.html",
       "/data_vis/gardening-covid/index.html"
     ]
@@ -14,6 +13,14 @@
     "items": [
       "/gen_art/apertures/index.html",
       "/gen_art/drifts/index.html"
+    ]
+  },
+  {
+    "listing": "/data_science.html",
+    "items": [
+      "/data_science/seizure-states/index.html",
+      "/data_science/seizure-pathways/index.html",
+      "/data_science/epilepsy-abnormalities/index.html"
     ]
   }
 ]
