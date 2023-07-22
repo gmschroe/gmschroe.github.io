@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Gabrielle M. Schroeder",
-    "section": "",
-    "text": "I am computational researcher from Newcastle upon Tyne with a passion for data visualisation. I particularly enjoy data vis projects that involve (1) finding creative, effective ways to tell stories and/or (2) developing custom ways to explore and summarise complex data.\nIn addition, I have over eight years of experience with data science and modelling. These skills allow me to process, transform, and interrogate data to find clear insights for stories and visualisations.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
-  },
-  {
     "objectID": "gen_art/apertures/index.html",
     "href": "gen_art/apertures/index.html",
     "title": "Apertures",
@@ -96,6 +89,20 @@
     "title": "Epilepsy research: Variability in seizure pathways",
     "section": "Data science approaches",
     "text": "Data science approaches\n\nData wrangling: For this project, I extracted and organised seizure brain recordings, seizure metadata, and subject metadata.\nSignal processing: I used signal processing techniques such as filtering to preprocess brain signals.\nNetwork analysis: I described seizure dynamics as the time-varying functional connectivity between pairs of brain regions. Functional connectivity is a type of network that describes the similarity of pairs of time series (e.g., brain activity). I used coherence to quantify the similarity of pairs of brain signals in the frequency domain. I described each seizure’s time-varying network evolution as a pathway through the high dimensional network space.\nDimensionality reduction: I used non-negative matrix factorisation to reduce the dimensionality of the seizure networks and multidimensional scaling to visualise changes in seizure dynamics in a two dimensional space.\nTime series analysis: Seizure pathways are multivariate time series. To compare these time series, I used dynamic time warping and distance metrics. Dynamic time warping stretches pairs of time series to align similar dynamics, making it a useful approach for comparing time series that evolve at different rates. For example, two seizures may spread in a similar pattern, but at different rates. Dynamic time warping allows us to recognise their similar pathway, even though they progress through the pathway at different speeds.\nNon-parametric statistics: I used permutation tests to test for associations between seizure pathways and other seizure features.\nSimulations and modelling: I compared the observed changes in seizure pathways to a simple model of how seizures could change over different timescales.\nClustering: I used clustering approaches such as hierarchical clustering and k-means clustering to cluster seizures based on their features, as well as cluster evaluation metrics to determine the optimal number of clusters."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "",
+    "section": "",
+    "text": "Gabrielle M. Schroeder\n\n\nData Science | Data Visualisation\n\n\n  \n    \n  \n  \nHi, I’m Gabrielle. I am a computational researcher and data visualisation enthusiast from Newcastle upon Tyne, UK. Read more about me or see examples of my data science, data vis, and generative art projects."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Gabrielle M. Schroeder",
+    "section": "",
+    "text": "I am computational researcher from Newcastle upon Tyne with a passion for data visualisation. I particularly enjoy data vis projects that involve (1) finding creative, effective ways to tell stories and/or (2) developing custom ways to explore and summarise complex data.\nIn addition, I have over eight years of experience with data science and modelling. These skills allow me to process, transform, and interrogate data to find clear insights for stories and visualisations.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
   },
   {
     "objectID": "data_vis.html",
