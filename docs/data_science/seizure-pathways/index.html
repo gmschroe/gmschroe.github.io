@@ -198,7 +198,7 @@ margin: auto;
 <p>Although it is well-established that brain dynamics vary over time, we are just beginning to understand how that variability impacts neurological disorders. In people with epilepsy, fluctuations in brain dynamics impact not only when seizures occur but also features such as symptoms and seizure spread. My PhD research focused on visualising and quantifying this variability, with ultimate goal of inspiring treatments that adapt to changing brain dynamics.</p>
 <p>Quantitatively comparing seizures is challenging because seizures are such complex events. They have both spatial and temporal features: they change the activity of multiple brain regions, and that activity evolves from seizure start to finish. Seizures therefore need to be described using multivariate time series that capture spatiotemporal changes in brain dynamics. I described these time series as <strong>pathways</strong> through the space of possible brain dynamics.</p>
 <p>I visualised seizure pathways in two dimensions using a dimensionality reduction technique that tries to maintain high dimensional distances in a lower dimensional space; it essentially squishes the data into two dimensions so that it’s easier to visually compare different observations. This representation isn’t perfect, but it’s a good way to start investigating the structure and relationships in complex data.</p>
-<p>Here’s an example of this approach using one subject’s seizures. Each point represents the brain activity during a short time of a seizure. Points that are closer together represent similar patterns of brain activity. By connecting points in the same seizure, we see how brain activity changes during the seizure; this line is the seizure’s pathway.</p>
+<p>Here’s an example of this approach using one subject’s seizures. Each point represents the brain’s activity during a short part of a seizure. Points that are closer together represent similar patterns of brain activity. By connecting points in the same seizure, we see how brain activity changes during the seizure; this line is the seizure’s pathway.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><a href="fig0.png" class="lightbox" data-gallery="pathways"><img src="fig0.png" class="img-fluid figure-img" width="500"></a></p>
@@ -493,7 +493,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"loop":true,"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom"});</script>
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","selector":".lightbox","loop":true,"openEffect":"zoom","descPosition":"bottom"});</script>
 
 
 
