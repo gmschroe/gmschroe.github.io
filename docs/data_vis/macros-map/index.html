@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Gabrielle M. Schroeder">
+<meta name="dcterms.date" content="2023-07-30">
 
-<title>Data science</title>
+<title>Macronutrients Map</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,24 +25,25 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -61,43 +64,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
 
-    const options = {
-      valueNames: ['listing-image','listing-title','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -110,7 +82,7 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="../../index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item dropdown ">
@@ -119,21 +91,21 @@ ul.task-list li input[type="checkbox"] {
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-portfolio">    
         <li>
-    <a class="dropdown-item" href="./data_science.html" rel="" target="">
+    <a class="dropdown-item" href="../../data_science.html" rel="" target="">
  <span class="dropdown-text">Data science</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./data_vis.html" rel="" target="">
+    <a class="dropdown-item" href="../../data_vis.html" rel="" target="">
  <span class="dropdown-text">Data visualisation</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./gen_art.html" rel="" target="">
+    <a class="dropdown-item" href="../../gen_art.html" rel="" target="">
  <span class="dropdown-text">Generative art</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="../../about.html" rel="" target="">
  <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -161,25 +133,41 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(3)</span></div><div class="category" data-category="Adobe Illustrator">Adobe Illustrator <span class="quarto-category-count">(3)</span></div><div class="category" data-category="MATLAB">MATLAB <span class="quarto-category-count">(2)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div><div class="category" data-category="research project">research project <span class="quarto-category-count">(3)</span></div></div></div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Data science</h1>
-</div>
+<h1 class="title">Macronutrients Map</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">personal project</div>
+    <div class="quarto-category">R</div>
+    <div class="quarto-category">Plotly</div>
+    <div class="quarto-category">interactive</div>
+  </div>
+  </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabrielle M. Schroeder </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">July 30, 2023</p>
+    </div>
+  </div>
   
     
   </div>
@@ -187,96 +175,53 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>For the past several years, I’ve worked as a researcher in the <a href="https://sites.google.com/view/cnnp-lab/">Computational Neurology, Neuroscience, and Psychiatry (CNNP) Lab</a> in the School of Computing at Newcastle University. I use a variety of computational, statistical, and mathematical approaches to find patterns in epileptic brain activity. I’ve summarised some of my main projects here, focusing on the high-level aims of each project – full details are available in the corresponding open access papers.</p>
-<section id="projects" class="level2">
-<h2 class="anchored" data-anchor-id="projects">Projects</h2>
-
+<iframe width="800" height="800" src="map_widget.html"></iframe>
+<section id="design-process" class="level1">
+<h1>Design process</h1>
+<p>This visualisation is an idea that’s been in the back of my mind for a few years. I’ve done a lot of macronutrient tracking in the past to help support my strength training goals, and I thought it would be fun to visualise the similarity of different foods in terms of this nutritional content. I think this approach is especially useful for foods with a mixture of macronutrients - it’s interesting to see cases where very different types of foods have similar compositions. For example, the indigo section above (between proteins and fats) has a lot of cheeses, but also eggs, sausage, turkey bacon, and pigeon!</p>
+<p>I selected a representative subset of foods from the United States Department of Agriculture (USDA) food database (provided by the R package {NutrienTrackeR}). Foods are plotted closer together if they have a similar amount of calories per 100 g and similar proportions of macronutrients (carbs, fats, and proteins). I reinforced the macronutrient information with a ternary colourmap computed by the R package {tricolore}: each food’s colour is based on the relative amounts of the three macronutrients. Meanwhile, calories per 100 g is encoded by the circle sizes. Calorie content is mostly dictated by water content (not shown) and the food’s macronutrients.</p>
+<p>I used Plotly to make the chart interactive, allowing the viewer to explore the relationship between different foods. Hovering over a point provides some nutritional info for that food.</p>
+</section>
+<section id="technical-details" class="level1">
+<h1>Technical details</h1>
+<p>Code for producing this visualisation is available on my <a href="https://github.com/gmschroe/macronutrient-map/tree/main">GitHub</a>.</p>
+<section id="food-selection" class="level2">
+<h2 class="anchored" data-anchor-id="food-selection">Food selection</h2>
+<p>The full USDA food database in the {NutrienTrackeR} package has an overwhelming number of foods: 7,754 . I pared this down to 1,530 foods using a combinations of subsetting, heuristics, and a small amount of manual curation. I wanted to have a wide variety of foods while focusing on 1) less specific entries, 2) fresh and unprepared foods, and 3) foods with fewer ingredients (i.e., not complete meals or dishes). However, I kept some simpler processed and multi-ingredient foods, such as bread and yoghurt. I also removed some of the more unusual entries such as “raccoon.”</p>
+<p>My wrangling steps included</p>
+<ul>
+<li><p>Removing database categories that didn’t meet my criteria (e.g., “Fast Foods” and “Restaurant Foods”).</p></li>
+<li><p>Removing entries with more than six words (excluding some phrases like “without salt” from the word count since they signified a simpler version of the food). This step removed very specific entries such as “Beef, chuck, shoulder clod, shoulder top and center steaks, separable lean and fat, trimmed to 0” fat, all grades, cooked, grilled” (21 words).</p></li>
+<li><p>Removing alcoholic foods and beverages since they have a fourth macronutrient - alcohol - that I didn’t want to include in this visualisation. I identified these entries by estimating each food’s calories based on their carbs, fats, and protein content. I then found foods where this calculation greatly underestimated the true calorie content (since the remaining calories come from the alcohol). I removed any remaining alcohol-related entries using string matching to the food names.</p></li>
+<li><p>Removing brand name foods. The USDA database capitalises most of the company names in the database, so these were easy to filter out by finding food names with multiple consecutive capital letters. I then manually filtered out some missed branded entries.</p></li>
+<li><p>Removing entries that contained words that indicated cooking or processing - e.g., “cooked”, “roasted”, or “frozen”. I was careful here to keep longer versions of these strings that indicated the opposite - e.g., “uncooked”.</p></li>
+</ul>
+<p>Together, these steps removed a lot of redundant entries, resulting in a more manageable map to explore.</p>
+<p>I also think this plot would work well using more tailored data, such as food from one person’s diet.</p>
+</section>
+<section id="layout" class="level2">
+<h2 class="anchored" data-anchor-id="layout">Layout</h2>
+<p>This visualisation uses a dimensionality technique called t-distributed Stochastic Neighbour Embedding (t-SNE), which embeds data in a small (e.g., two) number of dimensions to make it easier to visualise. The algorithm tries to optimise the new layout so that similar observations (here, foods) are placed close together. I based the similarity of the different foods off of their relative amounts of macronutrients and their calories per 100 g. Using relative macronutrient content (e.g., 20% protein) rather than the absolute macronutrient values (e.g., 10 g protein per 100 g) means that non-caloric content, such as water, is ignored for the embedding. I also normalised these features so that higher-magnitude features (such as calories) did not have a greater impact on food similarity.</p>
+<p>t-SNE is not deterministic - you can get different embeddings depending on where you first place each point. It also has a parameter, perplexity, that controls how much the algorithm focuses on nearby versus global similarities. To find an embedding that worked well for this visualisation, I systematically tried different starting configurations and perplexity values. I also experimented with scaling how much calories contributed to food similarity, as I wanted the layout to be primarily driven by the macronutrient content, with calories further separating foods with similar macronutrients. Ultimately, I divided the normalised calories by four to decrease their impact on the embedding.</p>
+<p>The initial t-SNE embedding that I selected looked something like this:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="tsne_embedding.png" class="lightbox" data-gallery="map"><img src="tsne_embedding.png" class="img-fluid figure-img" width="500"></a></p>
+</figure>
+</div>
+<p>This plot is pretty, but difficult to interact with because of the overlap between different foods, especially with the point size scaled by calories. I therefore used the R package {packcircles} to repel nearby points, resulting in a final layout without overlapping points. I also flipped the layout to work better with my text annotations - rotated or flipped embeddings are equivalent since they have the same distances between points. Here’s a non-interactive version of the final, annotated layout:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="macro_map.png" class="lightbox" data-gallery="map"><img src="macro_map.png" class="img-fluid figure-img" width="500"></a></p>
+</figure>
+</div>
+<p>While making this chart, I searched for any similar visualisations. I didn’t find any maps using these exact features, but there is a <a href="https://www.semanticscholar.org/paper/Intuitive-Data-Driven-Visualization-of-Food-via-Pfisterer-Amelard/4b94d119088c00fd57a8cea5ce65fb178c937377">published static t-SNE embedding</a> of USDA food data that uses the complete nutritional information (including micronutrient content such as vitamins). However, there are many more types of embedding approaches, so I may have missed other macronutrient representations - if you find any, I would love to see them!</p>
 
 
 </section>
+</section>
 
-<div class="quarto-listing quarto-listing-container-grid" id="listing-listing">
-<div class="list grid quarto-listing-cols-3">
-<div class="g-col-1" data-index="0" data-categories="research project,MATLAB,Adobe Illustrator" data-listing-date-sort="1689980400000" data-listing-file-modified-sort="1690040305025" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<a href="./data_science/seizure-states/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top">
-<img src="./data_science/seizure-states/fig6.png" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Epilepsy research: Modulations in seizure states
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('research project'); return false;">
-research project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('MATLAB'); return false;">
-MATLAB
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Adobe Illustrator'); return false;">
-Adobe Illustrator
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-categories="research project,MATLAB,Adobe Illustrator" data-listing-date-sort="1689807600000" data-listing-file-modified-sort="1690751863811" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<a href="./data_science/seizure-pathways/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top">
-<img src="./data_science/seizure-pathways/fig1.jpeg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Epilepsy research: Variability in seizure pathways
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('research project'); return false;">
-research project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('MATLAB'); return false;">
-MATLAB
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Adobe Illustrator'); return false;">
-Adobe Illustrator
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-categories="research project,Python,Adobe Illustrator" data-listing-date-sort="1688684400000" data-listing-file-modified-sort="1690024430980" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
-<a href="./data_science/epilepsy-abnormalities/index.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left borderless">
-<p class="card-img-top">
-<img src="./data_science/epilepsy-abnormalities/fig3.jpeg" class="thumbnail-image card-img" style="height: 150px;">
-</p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Epilepsy research: Do brain abnormalities change over time?
-</h5>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('research project'); return false;">
-research project
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Python'); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('Adobe Illustrator'); return false;">
-Adobe Illustrator
-</div>
-</div>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -511,6 +456,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+<script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","loop":true,"selector":".lightbox","openEffect":"zoom","descPosition":"bottom"});</script>
 
 
 
