@@ -95,14 +95,14 @@
     "href": "index.html",
     "title": "",
     "section": "",
-    "text": "Gabrielle M. Schroeder\n\n\nData Science | Data Visualisation\n\n\n  \n    \n  \n  \nHi, I’m Gabrielle. I am a computational researcher and data visualisation enthusiast from Newcastle upon Tyne, UK. Read more about me or see examples of my data science, data vis, and generative art projects."
+    "text": "Gabrielle M. Schroeder\n\n\nData Science | Data Visualisation\n\n\n  \n    \n  \n  \n\nHi, I’m Gabrielle. I am a research software engineer and data visualisation enthusiast from Newcastle upon Tyne, UK.\nRead more about me or see examples of my data science, data visualisation, and generative art projects."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Gabrielle M. Schroeder",
     "section": "",
-    "text": "I am computational researcher from Newcastle upon Tyne with a passion for uncovering and communicating insights from data.\nMy interest in data analysis was sparked by working with genetics data as an experimental biologist. In 2014, a Fulbright Postgraduate Award gave me the opportunity to transition to computational neuroscience and learn data science and modelling. These skills allow me to process, transform, and interrogate data to find clear patterns and stories. While most of my research analyses brain recordings and clinical data, I also work with a range of other data types for my personal and volunteer projects.\nI particularly enjoy data visualisation, especially when it involves (1) finding creative, effective ways to tell stories and/or (2) developing custom ways to explore and summarise complex data.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
+    "text": "I am research software engineer from Newcastle upon Tyne with a passion for uncovering and communicating insights from data.\nMy interest in data analysis was sparked by working with genetics data as an experimental biologist. In 2014, a Fulbright Postgraduate Award gave me the opportunity to transition to computational neuroscience, which included learning data science and programming. I now use those skills to develop data science and software solutions for a variety of research projects at Newcastle University.\nI particularly enjoy data visualisation, especially when it involves (1) finding creative, effective ways to tell stories and/or (2) developing custom ways to explore and summarise complex data.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
   },
   {
     "objectID": "data_vis.html",
@@ -228,7 +228,7 @@
     "href": "data_science.html",
     "title": "Data science",
     "section": "",
-    "text": "For the past several years, I’ve worked as a researcher in the Computational Neurology, Neuroscience, and Psychiatry (CNNP) Lab in the School of Computing at Newcastle University. I use a variety of computational, statistical, and mathematical approaches to find patterns in epileptic brain activity. I’ve summarised some of my main projects here, focusing on the high-level aims of each project – full details are available in the corresponding open access papers."
+    "text": "For several years, I worked as a researcher in the Computational Neurology, Neuroscience, and Psychiatry (CNNP) Lab in the School of Computing at Newcastle University. I used a variety of computational, statistical, and mathematical approaches to find patterns in epileptic brain activity. I’ve summarised some of my main projects here, focusing on the high-level aims of each project – full details are available in the corresponding open access papers."
   },
   {
     "objectID": "data_science.html#projects",
