@@ -1,17 +1,24 @@
 [
   {
+    "objectID": "gen_art/coastlines/index.html",
+    "href": "gen_art/coastlines/index.html",
+    "title": "Coastlines",
+    "section": "",
+    "text": "I created this system for the Genuary 2024 prompt “In the style of Vera Molnár” - it is inspired by her work La Ciotat. Since La Ciotat is also a French coastal town, as homage to Molnár’s work, I’ve named my pieces after some of the coastal locations that I’ve visited in the UK. The Lindisfarne pieces are the most similar to La Ciotat. The name of the system as a whole - Coastlines - also references the thin, vertical lines that are the building blocks of each piece as well as the frequent naturalistic imagery (e.g., hills or beaches).\nLicense: CC BY-NC-ND 4.0\nSet 1: Lindisfarne\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 2: Holyrood Park\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 3: Pentland Hills\n\n\n\n\n\n\n\n\n\n\n\n\nSet 4: Whitley Bay\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 5: Tynemouth\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 6: Llanddwyn"
+  },
+  {
     "objectID": "gen_art/apertures/index.html",
     "href": "gen_art/apertures/index.html",
     "title": "Apertures",
     "section": "",
-    "text": "This system is based on the concepts from session 2 of the Art from Code generative art tutorial.\nSet 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 2\n\n\n\n\n\n\n\n\n\n\n\n\nSet 3"
+    "text": "This system is based on the concepts from session 2 of the Art from Code generative art tutorial.\nLicense: CC BY-SA 4.0\nSet 1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nSet 2\n\n\n\n\n\n\n\n\n\n\n\n\nSet 3"
   },
   {
     "objectID": "gen_art/drifts/index.html",
     "href": "gen_art/drifts/index.html",
     "title": "Drifts",
     "section": "",
-    "text": "This system explores the concepts from session 2 of the Art from Code generative art tutorial. It uses pattern and noise generators in the ambient package. My implementation combines Worley noise and waves, with settings that control the frequencies, noise seeds, where waves begin, and how much the waves contribute to the final pattern."
+    "text": "This system explores the concepts from session 2 of the Art from Code generative art tutorial. It uses pattern and noise generators in the ambient package. My implementation combines Worley noise and waves, with settings that control the frequencies, noise seeds, where waves begin, and how much the waves contribute to the final pattern.\nLicense: CC BY-SA 4.0"
   },
   {
     "objectID": "data_science/seizure-states/index.html#overview",
@@ -95,21 +102,21 @@
     "href": "index.html",
     "title": "",
     "section": "",
-    "text": "Gabrielle M. Schroeder\n\n\nData Science | Data Visualisation\n\n\n  \n    \n  \n  \n\nHi, I’m Gabrielle. I am a research software engineer and data visualisation enthusiast from Newcastle upon Tyne, UK.\nRead more about me or see examples of my data science, data visualisation, and generative art projects."
+    "text": "Gabrielle M. Schroeder\n\n\nData Science - Data Visualisation - Software Engineering\n\n\n  \n    \n  \n  \n\nHi, I’m Gabrielle. I am a research software engineer and data visualisation enthusiast from Newcastle upon Tyne, UK.\nRead more about me or see examples of my data science, data visualisation, and generative art projects."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "Gabrielle M. Schroeder",
     "section": "",
-    "text": "I am research software engineer from Newcastle upon Tyne with a passion for uncovering and communicating insights from data.\nMy interest in data analysis was sparked by working with genetics data as an experimental biologist. In 2014, a Fulbright Postgraduate Award gave me the opportunity to transition to computational neuroscience, which included learning data science and programming. I now use those skills to develop data science and software solutions for a variety of research projects at Newcastle University.\nI particularly enjoy data visualisation, especially when it involves (1) finding creative, effective ways to tell stories and/or (2) developing custom ways to explore and summarise complex data.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
+    "text": "I am a research software engineer from Newcastle upon Tyne with a passion for uncovering and communicating insights from data.\nMy interest in data analysis was sparked by working with genetics data as an experimental biologist. In 2014, a Fulbright Postgraduate Award gave me the opportunity to transition to computational neuroscience, which included learning data science and programming. I now use those skills to develop data science and software solutions for a variety of research projects at Newcastle University.\nI particularly enjoy data visualisation, especially when it involves finding creative ways to tell stories or developing custom ways to explore complex data.\n\nEducation\nPhD in Computer Science | June 2022\nNewcastle University, Newcastle upon Tyne, UK\nMSc in Neuroinformatics | Dec. 2015\nNewcastle University, Newcastle Upon Tyne, UK\nBSc in Biological Sciences | May 2014\nRaleigh, North Carolina, US"
   },
   {
     "objectID": "data_vis.html",
     "href": "data_vis.html",
     "title": "Data visualisation",
     "section": "",
-    "text": "I created these visualisations for personal projects, which I use to learn new tools, practice design concepts, and experiment with different visualisation techniques. Many of these projects are part of community initiatives such as Viz for Social Good (VFSG) and Tidy Tuesday.\nFor more examples of my data vis, see my data science projects, which heavily employ data visualisation for exploring data and communicating key findings. While many of those projects use standard types of charts, I also often use creative ways to visualise complex, high-dimensional data."
+    "text": "I use personal projects to learn new tools, practice design concepts, and experiment with different visualisation techniques. Many of my projects are part of community initiatives such as Viz for Social Good (VFSG) and Tidy Tuesday.\nFor more examples, see my data science projects."
   },
   {
     "objectID": "data_vis.html#projects",
@@ -214,21 +221,21 @@
     "href": "data_vis/vfsg-who/index.html#other-design-choices",
     "title": "Viz for Social Good project: World Health Organisation",
     "section": "Other design choices",
-    "text": "Other design choices\n\nColour significance\nDuring this project, I learned that there are many colours used to represent different types of disability. I chose purple, which is becoming a symbol of disability as a whole.\n\n\nTool\nI made this visualisation using the R programming language, both for personal reasons (wanting to practice using the tidyverse/ggplot2 packages) and to have the large amount of control over the plot and text that R provides. The code is available on my GitHub."
+    "text": "Other design choices\n\nColour significance\nDuring this project, I learned that there are many colours used to represent different types of disability. I chose purple, which is becoming a symbol of disability as a whole.\n\n\nTool\nI made this visualisation using the R programming language, both for personal reasons (wanting to practice using the tidyverse/ggplot2 packages) and to have the large amount of control over the plot and text that R provides. The code is available on my GitHub.\n\n\n\nLicense: CC BY-NC 4.0"
   },
   {
     "objectID": "gen_art.html",
     "href": "gen_art.html",
     "title": "Generative art",
     "section": "",
-    "text": "I started experimenting with generative art while learning R. These pieces were made by developing programs that generate and plot data according to certain rules. I enjoy discovering the variety of outputs a system can create within those constraints.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApertures\n\n\n\nR\n\n\nambient\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDrifts\n\n\n\nR\n\n\nambient\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "I started experimenting with generative art while learning R. These pieces were created by programs that generate data using specific rules. By modifying the settings and incorporating randomness, the programs can produce qualitatively different outputs. I enjoy discovering the variety of outputs a system can create within its constraints.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCoastlines\n\n\n\nR\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nApertures\n\n\n\nR\n\n\nambient\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nDrifts\n\n\n\nR\n\n\nambient\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "data_science.html",
     "href": "data_science.html",
     "title": "Data science",
     "section": "",
-    "text": "For several years, I worked as a researcher in the Computational Neurology, Neuroscience, and Psychiatry (CNNP) Lab in the School of Computing at Newcastle University. I used a variety of computational, statistical, and mathematical approaches to find patterns in epileptic brain activity. I’ve summarised some of my main projects here, focusing on the high-level aims of each project – full details are available in the corresponding open access papers."
+    "text": "As a researcher in the Computational Neurology, Neuroscience, and Psychiatry (CNNP) Lab, I used a variety of data science techniques to uncover patterns in epileptic brain activity. More information about these projects is available in the corresponding open access papers."
   },
   {
     "objectID": "data_science.html#projects",

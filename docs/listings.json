@@ -12,6 +12,7 @@
   {
     "listing": "/gen_art.html",
     "items": [
+      "/gen_art/coastlines/index.html",
       "/gen_art/apertures/index.html",
       "/gen_art/drifts/index.html"
     ]
