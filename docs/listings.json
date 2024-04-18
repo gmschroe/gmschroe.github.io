@@ -2,6 +2,7 @@
   {
     "listing": "/data_vis.html",
     "items": [
+      "/data_vis/vfsg-impact/index.html",
       "/data_vis/macros-map/index.html",
       "/data_vis/vfsg-dwf/index.html",
       "/data_vis/tidy-tuesday/index.html",
