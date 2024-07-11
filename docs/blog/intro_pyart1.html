@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabrielle M. Schroeder">
+<meta name="dcterms.date" content="2024-06-25">
+
+<title>Introduction to generative art in Python using Perlin noise</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text"><span id="gms">GMS</span></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../data_science.html" rel="" target="">
+ <span class="menu-text">DATA SCIENCE</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data_vis.html" rel="" target="">
+ <span class="menu-text">DATA VISUALISATION</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../gen_art.html" rel="" target="">
+ <span class="menu-text">ART</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../blog.html" rel="" target="">
+ <span class="menu-text">BLOG</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html" rel="" target="">
+ <span class="menu-text">ABOUT</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to generative art in Python using Perlin noise</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">generative art</div>
+    <div class="quarto-category">Python</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabrielle M. Schroeder </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">June 25, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>I’ve struggled to find many introductory generative art tutorials using Python data science libraries (e.g., matplotlib), so I decided to write my own!</p>
+<p>Generative art provides great opportunities for learning new mathematical and programming skills. Although I primarily use R for generative art, I mainly use Python at work, and I wanted a resource I could share with other Python practitioners. This tutorial is inspired by <a href="https://art-from-code.netlify.app/day-1/session-2/">Danielle Navarro’s Art from Code tutorial</a> and <a href="https://medium.com/@yvanscher/playing-with-perlin-noise-generating-realistic-archipelagos-b59f004d8401">Yvan Scher’s archipelagos tutorial</a></p>
+<section id="noise-in-generative-art" class="level2">
+<h2 class="anchored" data-anchor-id="noise-in-generative-art">Noise in generative art</h2>
+<p>Generative art is art that is at least partly created by a non-human system, such as a computer program. The artist can build in certain rules that the system has to follow, but at least some decisions are made by the system itself.</p>
+<p>One of the primary approaches in generative art is creating data using “<a href="https://en.wikipedia.org/wiki/Noise_(spectral_phenomenon)">noise</a>” to produce shapes or patterns. There are many ways to generate noise with different characteristics, and the approach we’ll use here is <a href="https://en.wikipedia.org/wiki/Perlin_noise">Perlin noise</a>. Here’s a two dimensional image made using Perlin noise:</p>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="1">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p>As you can see, this image has a lot of structure - nearby values tend to be similar, creating islands or blobs of higher and lower values.</p>
+<p>To make the image above, I used the Python noise package. We’ll also need numpy for handling our arrays of data and the visualisation library matplotlib.</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> noise</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To generate two dimensional Perlin noise like the image above, we can use the <code>pnoise2</code> function in the noise package. <code>pnoise2</code> takes two values (e.g., x and y coordinates) and returns Perlin noise generated from those values.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">0.001</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="fl">0.001</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>perlin_value <span class="op">=</span> noise.pnoise2(x, y)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(perlin_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.0009999900357797742</code></pre>
+</div>
+</div>
+<p>We need to generative lots of values for different points, so lets make a function that creates an array filled with Perlin noise. We’ll use the indices of the array - i.e., the row and column numbers - as the inputs for <code>pnoise2</code>.</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_perlin_2d(n_x, n_y, scale<span class="op">=</span><span class="dv">1</span>, <span class="op">**</span>kwargs):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Create an array for holding Perlin noise</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># y coordinates correspond to the rows</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  perlin_data <span class="op">=</span> np.zeros((n_y, n_x))</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Largest dimension - use to scale values</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  max_n<span class="op">=</span><span class="bu">max</span>(n_y, n_x)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Compute noise using indices of the array</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_y): </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_x):</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      perlin_data[i,j] <span class="op">=</span> noise.pnoise2(</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        j<span class="op">/</span>max_n <span class="op">*</span> scale, <span class="co"># pass x value first (j)</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>        i<span class="op">/</span>max_n <span class="op">*</span> scale,</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">**</span>kwargs <span class="co"># Additional keyword arguments to pass to pnoise2</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> perlin_data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>You probably noticed that I didn’t just pass the array’s indices, <code>i</code> and <code>j</code>, to <code>pnoise2</code> - I’ve transformed them based on the size of the array and the <code>scale</code> argument. This approach will make it easier to use to control the features of our art - I’ll talk more about these data transformations below.</p>
+<p>First, though, we also need a way to visualise our art. We can use matplotlib’s <code>imshow</code> function to make a heatmap of the data:</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_perlin_art(perlin_data, show_plot<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data as a heatmap (each value = different colour)</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  ax.imshow(perlin_data)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  ax.axis(<span class="st">"off"</span>) <span class="co"># remove axes</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  ax.set_aspect(<span class="st">"equal"</span>) <span class="co"># equal aspect ratio</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> show_plot:</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return figure and axes handles</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> fig, ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now we’re ready to make and plot some Perlin noise!</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-7-output-1.png" width="304" height="304" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s take another look at the data transformations for the indices, <code>i/max_n * scale</code> and <code>j/max_n * scale</code>. First, the indices are divided by the largest dimension of the data - e.g., in a 50 x 100 matrix, all the indices would be divided by 100 before being passed to <code>pnoise2</code>. This transformation scales all the values so they are between 0 and 1, which means that we can use the <code>n_x</code> and <code>n_y</code> to change the size of the array - and therefore the plot’s resolution - without also changing the range of values passed to <code>pnoise2</code>. Lower dimensions will have the same pattern, but make the plot look pixelated:</p>
+<div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Original - smooth</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x<span class="op">=</span><span class="dv">1000</span>, n_y<span class="op">=</span><span class="dv">1000</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Decreasing resolution</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x<span class="op">=</span><span class="dv">50</span>, n_y<span class="op">=</span><span class="dv">50</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Even more pixelated</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x<span class="op">=</span><span class="dv">10</span>, n_y<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="7">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-8-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If we want to change the magnitude of the values passed to <code>pnoise2</code>, we can use the function’s <code>scale</code> argument. This argument lets us create larger or smaller patterns:</p>
+<div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Larger pattern with scale &lt; 1</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, scale<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Default scale (1)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, scale<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Smaller patterns with scale &gt; 1</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, scale<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="8">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-9-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>These function arguments - <code>n_x</code>, <code>n_y</code>, and <code>scale</code> - are examples of <strong>parameters</strong> that can be used to change the features of our art. While all of the plots above are made using the same basic rules, the different parameters can create drastically different effects. A large part of generative art is experimenting with different parameter values. In the next section we’ll add some more parameters to this system to change the generated Perlin noise.</p>
+</section>
+<section id="adding-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="adding-parameters">Adding parameters</h2>
+<p>The <code>pnoise2</code> function has several built-in parameters that control the features of the generated Perlin noise. I’ve set up <code>gen_perlin_2d</code> so that any additional keyword arguments are passed to <code>pnoise2</code>, allowing us to easily modify these parameters.</p>
+<p>We’ll experiment with <code>octaves</code>, <code>lacunarity</code>, <code>persistence</code>, and <code>repeatx</code>/<code>repeaty</code>. For generative art, it’s not crucial to understand all of the maths behind these parameters - when we experiment with lots of different parameters, the combined effects are often difficult to predict regardless. However, it’s helpful to know the different options and the ranges of values that produce interesting effects.</p>
+<section id="octaves" class="level3">
+<h3 class="anchored" data-anchor-id="octaves">Octaves</h3>
+<p>We can create interesting effects with Perlin noise by adding together Perlin noise with different characteristics. The <code>octaves</code> parameter controls the number of layers added together. By default, the spatial scale of the pattern (i.e., the size of the blobs) and the amplitude of the noise (i.e., the amount that the pattern contributes to the final effect) are both halved with each successive layer: you get smaller and smaller blobs, but the larger shapes remain the dominant pattern because they have relatively higher values.</p>
+<p>Here’s how increasing <code>octaves</code> impacts the pattern we’ve been working with:</p>
+<div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># One octave (default)</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Two octaves</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Four octaves</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Eight octaves</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="9">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-10-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-10-output-4.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>We’re starting to get interesting, detailed patterns as the number of octaves increases. In fact, this is a <a href="https://en.wikipedia.org/wiki/Fractal">fractal</a> pattern: if you zoom in to part of the image, you see a pattern that look similar to the image as a whole.</p>
+<p>For our generative art system, we need to know that <code>octaves</code> must be an integer greater than or equal to one. It’s also helpful to know that beyond a certain point, further increasing <code>octaves</code> doesn’t have a visible impact on the pattern, which makes sense: since the amplitude of the noise is halved with each layer, successive layers start to have miniscule effects on the generated data.</p>
+</section>
+<section id="lacunarity" class="level3">
+<h3 class="anchored" data-anchor-id="lacunarity">Lacunarity</h3>
+<p>When we add together different layers of noise using the <code>octaves</code> parameter, we can also control how the noise changes from layer to layer using <code>lacunarity</code>. This parameter controls how the size of the blobs change with each layer, which is inversely related to the number of blobs (i.e., the “frequency”). The higher the <code>lacunarity</code> value, the more the blob sizes decrease with each new layer. As mentioned above, by default, <code>lacunarity</code> is 2.0 - the frequency doubles (which halves the spatial scale) with each successive layer.</p>
+<p>It’s easier to see the impact of adjusting <code>lacunarity</code> when we keep <code>octaves</code> constant (here, 8):</p>
+<div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of octaves</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>octaves <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co"># lacunarity=2 (default)</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, lacunarity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co"># lacunarity=3.25 (doesn't have to be an integer!)</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, lacunarity<span class="op">=</span><span class="fl">3.25</span>)</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a><span class="co"># lacunarity=5</span></span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, lacunarity<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a><span class="co"># lacunarity=10</span></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, lacunarity<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="10">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-11-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-11-output-4.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Higher values tend to create busier patterns, which makes sense if we think about the fact that the amplitude of the noise also decays with each layer. If we’re adding smaller shapes to the image at an earlier stage - before the amplitude has had a chance to decay as much - they’ll have a greater impact on the final values.</p>
+<p>For our system, values over one are the most interesting as they’ll add details to the image, and <code>lacunarity</code> does not have to be an integer.</p>
+</section>
+<section id="persistence" class="level3">
+<h3 class="anchored" data-anchor-id="persistence">Persistence</h3>
+<p>We can also control how much each layer contributes to the final image using <code>persistence</code>. By default, <code>persistence</code> is 0.5, which halves the amplitude of the noise in each successive layer. If <code>persistence</code> is greater than 1, successive layers contribute more and more to final image, while less than 1 means that each later layer has less of an impact.</p>
+<p>Here’s the results of changing <code>persistence</code> while keeping <code>octaves</code> equal to 8:</p>
+<div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of octaves</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>octaves <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># persistence=1.25</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, persistence<span class="op">=</span><span class="fl">1.25</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># persistence=1</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, persistence<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co"># persistence=0.5 (default)</span></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, persistence<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co"># persistence=0.25</span></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, persistence<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="11">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-12-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-12-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-12-output-4.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>This parameter can be any value greater than zero. However, values too close to 0 or too far over 1 tend to have less interesting effects because individual layers either have too little or too much impact on the final image, respectively.</p>
+</section>
+<section id="tiling" class="level3">
+<h3 class="anchored" data-anchor-id="tiling">Tiling</h3>
+<p>Finally, the <code>repeatx</code> and <code>repeaty</code> parameters allow us to repeat the noise pattern to create a tiled effect. Both parameters take the tile size as input, so we want to use a value that is less than <code>scale</code> (which is 1 by default).</p>
+<div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">2</span> <span class="co"># scale</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>octaves <span class="op">=</span> <span class="dv">8</span> <span class="co"># number of octaves</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>n_tiles <span class="op">=</span> <span class="dv">4</span> <span class="co"># number of tiles</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiling both x and y (tile size = scale/n_tiles)</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  n_x, </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  n_y, </span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  scale<span class="op">=</span>scale, </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  octaves<span class="op">=</span>octaves, </span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  repeatx<span class="op">=</span>scale<span class="op">/</span>n_tiles, </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  repeaty<span class="op">=</span>scale<span class="op">/</span>n_tiles</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiling x only</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>  n_x, </span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>  n_y, </span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>  scale<span class="op">=</span>scale, </span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>  octaves<span class="op">=</span>octaves, </span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  repeatx<span class="op">=</span>scale<span class="op">/</span>n_tiles</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a><span class="co"># Tiling y only</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  n_x, </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  n_y, </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  scale<span class="op">=</span>scale, </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  octaves<span class="op">=</span>octaves, </span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  repeaty<span class="op">=</span>scale<span class="op">/</span>n_tiles</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="12">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-13-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-13-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-13-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If the tiles get too small, the transitions between tiles isn’t as smooth (which can also be an interesting effect). I’m not familiar with the maths behind this parameter, though, so you’ll have to experiment with the values to figure out where smooth tiles end!</p>
+</section>
+</section>
+<section id="adding-randomness" class="level2">
+<h2 class="anchored" data-anchor-id="adding-randomness">Adding randomness</h2>
+<p>Our parameters are like a recipe for our generative art. The parameters for baking chocolate chip cookies would be factors like</p>
+<ul>
+<li>the ingredients</li>
+<li>how much of each ingredient to use</li>
+<li>how the ingredients are mixed</li>
+<li>the amount of dough to use for each cookie</li>
+<li>the location of the cookie on the baking tray</li>
+<li>the oven temperature</li>
+<li>the baking time</li>
+</ul>
+<p>However, even if you follow the exact same steps, the resulting cookies will not be identical from batch to batch. There will be slight differences outside of our control, such as the precise locations of the chocolate chips, the shape of each cookie as it spreads during baking, and the pattern of browning on the surface. This variability is due to randomness that is intrinsic to baking.</p>
+<p>In the same way, we can get different outputs from our generative art system, even when we use the same parameters, because we can generate different versions of Perlin noise. In <code>pnoise2</code>, the <code>base</code> argument controls the version of Perlin noise that is generated. We also want to experiment with this value because some versions will produce subjectively nicer or prettier art, just by chance. So far we’ve just used <code>pnoise2</code>’s default <code>base</code> value of 1, which is why all of our outputs look kind of similar - even when the parameters are different.</p>
+<p>Here are different versions of Perlin noise generated using the same parameters:</p>
+<div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define dimensions of the data</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of octaves</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>octaves <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of versions to plot</span></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>n_versions <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_versions):</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Use i as the base value</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  perlin_data <span class="op">=</span> gen_perlin_2d(n_x, n_y, octaves<span class="op">=</span>octaves, base<span class="op">=</span>i)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="13">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-14-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 25.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-14-output-4.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Note that unlike <code>pnoise2</code>, many other functions for generating noise or random data do <em>not</em> produce the same output every time by default. In the “Scanning parameters” section, I’ll go over how to make these functions reproducible, too.</p>
+</section>
+<section id="experimenting-with-colour" class="level2">
+<h2 class="anchored" data-anchor-id="experimenting-with-colour">Experimenting with colour</h2>
+<p>Colours can also be seen as parameters, but they deserve special attention since they have so much impact on the final output. So far we’ve been visualising our art using matplotlib’s default colourmap, “viridis”. Viridis is an example of a sequential colourmap - both the hue and lightness of the colours gradually change as the data’s values change. This relationship is easier to see if we turn on the colourbar:</p>
+<div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate data</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x <span class="op">=</span> <span class="dv">1000</span>, n_y <span class="op">=</span> <span class="dv">1000</span>, octaves<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the data as a heatmap with a colourbar</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> plt.imshow(perlin_data)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>plt.colorbar(im) <span class="co"># colourbar</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>plt.axis(<span class="st">"off"</span>) <span class="co"># remove axes</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="14">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img" width="378"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>However, our matplotlib plotting function, <code>imshow</code>, works with any of the <a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html">built-in matplotlib colourmaps</a>. Let’s add an argument to our plotting function <code>plot_perlin_art</code> that allows us to pass the colourmap to <code>imshow</code>.</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"viridis"</span>, show_plot<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot the data as a heatmap</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  ax.imshow(perlin_data, cmap)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ax.axis(<span class="st">"off"</span>) <span class="co"># remove axes</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  ax.set_aspect(<span class="st">"equal"</span>) <span class="co"># equal aspect ratio</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> show_plot:</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Return figure and axes handles</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> fig, ax</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can now try out different colourmaps. We’ll use the same data that was generated above so any differences will just be due to changing the colours.</p>
+<p>Here’s a different sequential colourmap, “magma”:</p>
+<div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A different sequential colourmap</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"magma"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="16">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>If this code was for a data visualisation progject, a sequential colourmap would probably make the most sense because we have continuous data with clear low and high values. In generative art, however, there are no rules. We can plot our Perlin noise using any type of colourmap:</p>
+<div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Diverging - middle values are lightest, </span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># lowest and highest are darkest (but different colours)</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"Spectral"</span>)</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Cyclic - colourmap loops around # (useful for cyclic data like time of day)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"twilight"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Qualitative (discrete values)</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"tab20b"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="17">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-18-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-18-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The qualitative colourmap in particular produces a very different effect: it maps a range of values onto each colour, producing bands of colours.</p>
+<p>We’re also not limited to matplotlib’s colourmaps. There are many Python packages (such as <a href="https://jiffyclub.github.io/palettable/">palettable</a>) that provide additional colourmaps, and we can also <a href="https://matplotlib.org/stable/users/explain/colors/colormap-manipulation.html">design our own</a>:</p>
+<div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import classes for creating colourmaps</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> LinearSegmentedColormap, ListedColormap</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># List of colours</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>clrs <span class="op">=</span> [<span class="st">'#d2a556'</span>, <span class="st">'#b55f59'</span>,<span class="st">'#6a365a'</span>,<span class="st">'#65456f'</span>,<span class="st">'#5b5380'</span>,<span class="st">'#4f628d'</span>,<span class="st">'#446f95'</span>]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Qualitative colourmap (discrete values)</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>cmap_qualitative <span class="op">=</span> ListedColormap(clrs)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap_qualitative)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Continuous colourmap (adds many additional interpolated colours)</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>cmap_continuous <span class="op">=</span> LinearSegmentedColormap.from_list(name<span class="op">=</span><span class="st">"my_cmap"</span>, colors<span class="op">=</span>clrs)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap_continuous)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="18">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-19-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>These colourmaps wouldn’t be good for data visualisation: the qualitative colourmap has similar colours that are difficult to distinguish, and the continuous colourmap isn’t <a href="https://matplotlib.org/stable/users/explain/colors/colormaps.html#overview">perceptually uniform</a>. However, as I said before, the same rules don’t apply to art! In fact, using colours in atypical ways can create interesting effects - like the way the yellow and orange stands out from the background purple and blue colours in the plot above.</p>
+</section>
+<section id="scanning-parameters" class="level2">
+<h2 class="anchored" data-anchor-id="scanning-parameters">Scanning parameters</h2>
+<p>We now have many ways to produce different outputs from our generative art system. We could experiment with the different options by manually changing the inputs, like we have above. However, that approach can quickly get tedious, especially in more complex systems where the code takes more time to run. We can instead speed up this process by <strong>scanning</strong> the possible parameters.</p>
+<p>One scan approach is a <strong>grid search</strong> - we choose possible values for each parameter, then use each combination of parameters. Here I’ve scanned <code>lacunarity</code> and <code>persistence</code> using a grid search, while keeping the other parameters fixed. I also change the <code>base</code> value for each output, as otherwise the underlying data will have a similar structure despite the parameter changes.</p>
+<div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Values to scan for lacunarity and persistence</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># I've made the values evenly spaced here, but they do not have to be.</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>scan_lacunarity <span class="op">=</span> np.linspace(<span class="fl">1.5</span>, <span class="fl">3.5</span>, <span class="dv">5</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>scan_persistence <span class="op">=</span> np.linspace(<span class="fl">0.1</span>, <span class="fl">1.1</span>, <span class="dv">5</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Fixed parameters</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>octaves <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Custom continuous colourmap</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>clrs <span class="op">=</span> [<span class="st">'#d2a556'</span>, <span class="st">'#b55f59'</span>,<span class="st">'#6a365a'</span>,<span class="st">'#65456f'</span>,<span class="st">'#5b5380'</span>,<span class="st">'#4f628d'</span>,<span class="st">'#446f95'</span>]</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>cmap <span class="op">=</span> ListedColormap(clrs)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable to use to set different base values </span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a><span class="co"># (so the randomly generated data is markedly different for each output)</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>scan_count <span class="op">=</span> <span class="dv">0</span> </span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Scan </span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lacunarity <span class="kw">in</span> scan_lacunarity:</span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> persistence <span class="kw">in</span> scan_persistence:</span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Generate data using specified parameters</span></span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>    perlin_data <span class="op">=</span> gen_perlin_2d(</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>      n_x<span class="op">=</span>n_x, </span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>      n_y<span class="op">=</span>n_y, </span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>      octaves<span class="op">=</span>octaves, </span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>      lacunarity<span class="op">=</span>lacunarity,</span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>      persistence<span class="op">=</span>persistence,</span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>      base<span class="op">=</span>scan_count</span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot with custom colourmap</span></span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap, show_plot<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Title with parameter values and base value</span></span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"lacunarity=</span><span class="sc">{</span>lacunarity<span class="sc">}</span><span class="ss">, persistence=</span><span class="sc">{</span>persistence<span class="sc">}</span><span class="ss">, base=</span><span class="sc">{</span>scan_count<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Increment to change base for each iteration</span></span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>    scan_count <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="19">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-4.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-5.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-6.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-7.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-8.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-9.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-10.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-11.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-12.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-13.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-14.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-15.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-16.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-17.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-18.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-19.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-20.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-21.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-22.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-23.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-24.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-20-output-25.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Grid searches benefit from being exhaustive - we try out each combination of parameters - but they can quickly become impractical when there is a large number of parameters. Excluding colour, we have eight parameters in our simple system (<code>octaves</code>, <code>lacunarity</code>, <code>persistence</code>, <code>scale</code>, <code>n_x</code>, <code>n_y</code>, <code>repeatx</code>, and <code>repeaty</code>) - even testing out just five values for each parameter gives us 5<sup>8</sup> = 390,625 different combinations! Because we can only realistically test a small number of parameter values, we also miss all of the intermediate values.</p>
+<p>Another option that helps address these issues is a <strong>random search</strong> where we randomly select the parameter values. We can draw from a discrete list of options, like in the grid search, or select from a continuous range of values, allowing us to see combinations that wouldn’t arise from our grid search. I also find random searches more fun because I have no idea what the next output will look like!</p>
+<p>Here’s a function that randomly selects <code>lacunarity</code> and <code>persistence</code>, as well as the <code>base</code> value. I’ve set the default parameter ranges to the same as our grid search so we can easily compare their results. Since <code>lacunarity</code> and <code>persistence</code> are floats, we can generate values for them using <code>np.random.uniform</code>. This numpy function draws from a uniform distribution, which means that all values between the specified lower and upper limits are equally likely to be chosen. For <code>base</code> we need an integer, so we instead use <code>np.random.randint</code>.</p>
+<p>Unlike our Perlin noise generator, <code>np.random.uniform</code> and <code>np.random.randint</code> will give us a different result each time they are run - however, we can make the results reproducible by setting a <strong>seed</strong> for numpy’s random number generator using <code>np.random.seed</code>.</p>
+<div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate random parameters</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gen_perlin_art_param(</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  seed<span class="op">=</span><span class="dv">0</span>, <span class="co"># seed for reproducibility</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  lacunarity_l<span class="op">=</span><span class="fl">1.5</span>, <span class="co"># lower limit for lacunarity</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  lacunarity_h<span class="op">=</span><span class="fl">3.5</span>, <span class="co"># upper limit for lacunarity</span></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  persistence_l<span class="op">=</span><span class="fl">0.1</span>, <span class="co"># lower limit for persistence</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  persistence_h<span class="op">=</span><span class="fl">1.1</span>, <span class="co"># upper limit for persistence</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>  base_l<span class="op">=</span><span class="dv">1</span>, <span class="co"># lower limit for base</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>  base_h<span class="op">=</span><span class="dv">99</span>, <span class="co"># upper limit for base</span></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>  octaves<span class="op">=</span><span class="dv">8</span>, <span class="co"># fixed parameters</span></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>  n_x<span class="op">=</span><span class="dv">1000</span>,</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>  n_y<span class="op">=</span><span class="dv">1000</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Dictionary for storing parameters</span></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>  param <span class="op">=</span> {}</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Set seed</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>  np.random.seed(seed)</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Select lacunarity and persistence from uniform distributions with specified bounds</span></span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Round to two decimal places so easier to print and since small changes do not greatly </span></span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>  <span class="co"># impact the results for these parameters </span></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>  <span class="co"># (rounding may not be appropriate for other parameters)</span></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"lacunarity"</span>] <span class="op">=</span> <span class="bu">round</span>(np.random.uniform(low<span class="op">=</span>lacunarity_l, high<span class="op">=</span>lacunarity_h),<span class="dv">2</span>)</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"persistence"</span>] <span class="op">=</span> <span class="bu">round</span>(np.random.uniform(low<span class="op">=</span>persistence_l, high<span class="op">=</span>persistence_h),<span class="dv">2</span>)</span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Randomly generate an integer for the base value</span></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"base"</span>] <span class="op">=</span> np.random.randint(low<span class="op">=</span>base_l, high<span class="op">=</span>base_h)</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Add fixed parameters to dictionary</span></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"octaves"</span>] <span class="op">=</span> octaves</span>
+<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"n_x"</span>] <span class="op">=</span> n_x</span>
+<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a>  param[<span class="st">"n_y"</span>] <span class="op">=</span> n_y</span>
+<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-36"><a href="#cb20-36" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> param</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="20">
+
+</div>
+</div>
+<p>Using the <code>seed</code> argument, we can change the parameters generated or reproduce earlier parameters:</p>
+<div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># seed = 0</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>param <span class="op">=</span> gen_perlin_art_param(seed<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(param)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Different parameters with seed = 5</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>param <span class="op">=</span> gen_perlin_art_param(seed<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(param)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Returning to seed = 0 gives same results as before</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>param <span class="op">=</span> gen_perlin_art_param(seed<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(param)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="21">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-stdout quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<pre><code>{'lacunarity': 2.6, 'persistence': 0.82, 'base': 68, 'octaves': 8, 'n_x': 1000, 'n_y': 1000}
+{'lacunarity': 1.94, 'persistence': 0.97, 'base': 17, 'octaves': 8, 'n_x': 1000, 'n_y': 1000}
+{'lacunarity': 2.6, 'persistence': 0.82, 'base': 68, 'octaves': 8, 'n_x': 1000, 'n_y': 1000}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<p>Let’s use this new function to generate 25 outputs from our system. We pass the dictionary containing the parameters to <code>gen_perlin_2d</code> using the <code>**</code> prefix, which will unpack the dictionary and use the items as keyword arguments.</p>
+<div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Number of plots to produce</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>n_outputs <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Variable for shifting seed values</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>starting_seed <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Random scan</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_outputs):</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate parameters</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  seed_i <span class="op">=</span> i <span class="op">+</span> starting_seed</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  param <span class="op">=</span> gen_perlin_art_param(seed<span class="op">=</span>seed_i)</span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Generate data</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>  perlin_data <span class="op">=</span> gen_perlin_2d(<span class="op">**</span>param)</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Plot</span></span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap, show_plot<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  ax.set_title(</span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"seed=</span><span class="sc">{</span>seed_i<span class="sc">}</span><span class="ss">,</span><span class="ch">\n</span><span class="ss">"</span></span>
+<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"lacunarity=</span><span class="sc">{</span>param[<span class="st">'lacunarity'</span>]<span class="sc">}</span><span class="ss">, "</span></span>
+<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"persistence = </span><span class="sc">{</span>param[<span class="st">'persistence'</span>]<span class="sc">}</span><span class="ss">, "</span></span>
+<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"base = </span><span class="sc">{</span>param[<span class="st">'base'</span>]<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a>  plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="22">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-3.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-4.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-5.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-6.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-7.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-8.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-9.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-10.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-11.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-12.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-13.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-14.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.5%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-15.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-16.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-17.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.8%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-18.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.8%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-19.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.8%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-20.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-21.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-22.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-23.png" class="img-fluid figure-img" width="314"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 19.7%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-24.png" class="img-fluid figure-img" width="307"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 20.2%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-23-output-25.png" class="img-fluid figure-img" width="315"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Even though this search was random, we still get similar ranges of outputs as in our grid search, and we also see parameter values that weren’t possible in our original search.</p>
+<p>Using our seed, we can reproduce any of these outputs (for example, if we wanted to save it at a higher resolution). Because we also output the parameters that result from that seed, we can also easily experiment with changing the parameters or using different colours. Let’s do so with <code>seed = 7</code>, which I think has an interesting pattern:</p>
+<div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">7</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Original version</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>param <span class="op">=</span> gen_perlin_art_param(seed<span class="op">=</span>seed)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(<span class="op">**</span>param)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap)</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Manually change the parameters to decrease persistence</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>param[<span class="st">"persistence"</span>] <span class="op">=</span> param[<span class="st">"persistence"</span>] <span class="op">/</span> <span class="dv">2</span> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(<span class="op">**</span>param)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span>cmap)</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Also change the colourmap</span></span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data, cmap<span class="op">=</span><span class="st">"twilight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="23">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-24-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-24-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>When I explore one of my generative art systems, I always run multiple scans. I first use ranges of parameter values that look interesting based on my initial manual explorations. In subsequent scans, I’ll either widen the ranges to explore new parts of parameter space or narrow them to create more outputs from parameters that produce nice effects. You can even make lots of outputs from exactly the same parameter values by only changing the noise generated (e.g., using the <code>base</code> value in our system). Not all of the scan outputs will look nice or even reasonable, especially when pushing parameters to extreme values, but you’ll also often see surprising outputs that look completely different from your initial explorations.</p>
+<p>Importantly, changing the scan set up means that the random seeds from the previous scan will produce different parameters, so you can no longer use the seeds to make any earlier outputs. To reproduce all outputs, you’ll need to save the parameters used for each output or the code used for that scan (e.g., using version control or a function that you don’t modify).</p>
+</section>
+<section id="next-steps" class="level2">
+<h2 class="anchored" data-anchor-id="next-steps">Next steps</h2>
+<p>We now have a fledgling generative art system, but there are many ways we can extend or modify it. Here are some ideas to explore:</p>
+<ul>
+<li>Add more parameters and the colourmap settings to the scan.</li>
+<li>Create your own custom colourmaps.</li>
+<li>Change the colours and parameters to create natural patterns or shapes, like clouds or islands (see <a href="https://medium.com/@yvanscher/playing-with-perlin-noise-generating-realistic-archipelagos-b59f004d8401">Yvan Scher’s tutorial</a> and <a href="https://github.com/wadefletch/terrain">this code</a> for inspiration).</li>
+</ul>
+<p>We can also add a second data generation step (with additional parameters!) that modifies <code>perlin_data</code> using other approaches:</p>
+<div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate Perlin data </span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> gen_perlin_2d(n_x<span class="op">=</span>n_x, n_y<span class="op">=</span>n_y, octaves<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Parameters for modifying Perlin data</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>add_high <span class="op">=</span> np.<span class="bu">max</span>(<span class="bu">abs</span>(perlin_data)) <span class="op">*</span> <span class="fl">1.5</span> <span class="co"># max amount that can be added</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>add_low <span class="op">=</span> add_high<span class="op">/</span><span class="dv">5</span> <span class="co"># min amount that can be added</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Generate numbers to add to columns</span></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>seed <span class="op">=</span> <span class="dv">0</span> <span class="co"># seed for random number generation</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>np.random.seed(seed)</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>vec <span class="op">=</span> np.random.uniform(low<span class="op">=</span>add_low, high<span class="op">=</span>add_high, size<span class="op">=</span>n_y)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Add to perlin_data (using broadcasting)</span></span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> perlin_data <span class="op">+</span> vec</span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plot_perlin_art(perlin_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="24">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-25-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>Additionally, we can use Perlin noise in generative art without directly visualising the noise itself as a heatmap. Here’s a simple example that uses Perlin noise to set the colours and/or sizes of a grid of points:</p>
+<div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create grid of points to plot</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>n_x <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>n_y <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>max_n<span class="op">=</span><span class="bu">max</span>(n_x, n_y)</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>scale <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, n_x, n_x) <span class="op">/</span> (max_n <span class="op">*</span> scale) <span class="co"># as in gen_perlin_2d, scale values between 0 and scale</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.linspace(<span class="dv">0</span>, n_y, n_y) <span class="op">/</span> (max_n <span class="op">*</span> scale)</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>points_x, points_y <span class="op">=</span> np.meshgrid(x, y) <span class="co"># grid</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Perlin noise for each value in the grid</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>octaves<span class="op">=</span><span class="dv">8</span></span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>persistence<span class="op">=</span><span class="fl">0.2</span></span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>base<span class="op">=</span><span class="dv">10</span></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> np.zeros((n_y, n_x))</span>
+<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_y):</span>
+<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_x):</span>
+<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>    perlin_data[i, j] <span class="op">=</span> noise.pnoise2(</span>
+<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>      points_x[i, j], points_y[i, j], octaves<span class="op">=</span>octaves, persistence<span class="op">=</span>persistence, base<span class="op">=</span>base</span>
+<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Shift Perlin noise so &gt;= 0 so can use to control size</span></span>
+<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>min_perlin <span class="op">=</span> np.<span class="bu">min</span>(perlin_data)</span>
+<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>perlin_data <span class="op">=</span> perlin_data <span class="op">+</span> np.<span class="bu">abs</span>(min_perlin)</span>
+<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Figure settings</span></span>
+<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>size_multiplier <span class="op">=</span> <span class="dv">25</span> <span class="co"># multiplier for size of points</span></span>
+<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>cmap<span class="op">=</span><span class="st">"twilight"</span> <span class="co"># colourmap</span></span>
+<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> apply_fig_settings(fig, ax):</span>
+<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>  fig.set_facecolor(<span class="st">"#272727"</span>) <span class="co"># background colour</span></span>
+<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>  ax.axis(<span class="st">"off"</span>) <span class="co"># remove axes</span></span>
+<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>  ax.set_aspect(<span class="st">"equal"</span>) <span class="co"># equal aspect ratio</span></span>
+<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>  plt.show()</span>
+<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot, setting size based on Perlin noise </span></span>
+<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>ax.scatter(</span>
+<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>  points_x, </span>
+<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>  points_y, </span>
+<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>  s<span class="op">=</span>(perlin_data <span class="op">*</span> size_multiplier)</span>
+<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>apply_fig_settings(fig, ax)</span>
+<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-43"><a href="#cb26-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot, setting colour based on Perlin noise </span></span>
+<span id="cb26-44"><a href="#cb26-44" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb26-45"><a href="#cb26-45" aria-hidden="true" tabindex="-1"></a>ax.scatter(</span>
+<span id="cb26-46"><a href="#cb26-46" aria-hidden="true" tabindex="-1"></a>  points_x, </span>
+<span id="cb26-47"><a href="#cb26-47" aria-hidden="true" tabindex="-1"></a>  points_y, </span>
+<span id="cb26-48"><a href="#cb26-48" aria-hidden="true" tabindex="-1"></a>  s<span class="op">=</span>size_multiplier,</span>
+<span id="cb26-49"><a href="#cb26-49" aria-hidden="true" tabindex="-1"></a>  c<span class="op">=</span>(perlin_data <span class="op">*</span> size_multiplier),</span>
+<span id="cb26-50"><a href="#cb26-50" aria-hidden="true" tabindex="-1"></a>  cmap<span class="op">=</span>cmap</span>
+<span id="cb26-51"><a href="#cb26-51" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-52"><a href="#cb26-52" aria-hidden="true" tabindex="-1"></a>apply_fig_settings(fig, ax)</span>
+<span id="cb26-53"><a href="#cb26-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-54"><a href="#cb26-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot, setting size and colour based on Perlin noise </span></span>
+<span id="cb26-55"><a href="#cb26-55" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb26-56"><a href="#cb26-56" aria-hidden="true" tabindex="-1"></a>ax.scatter(</span>
+<span id="cb26-57"><a href="#cb26-57" aria-hidden="true" tabindex="-1"></a>  points_x, </span>
+<span id="cb26-58"><a href="#cb26-58" aria-hidden="true" tabindex="-1"></a>  points_y, </span>
+<span id="cb26-59"><a href="#cb26-59" aria-hidden="true" tabindex="-1"></a>  s<span class="op">=</span>(perlin_data <span class="op">*</span> size_multiplier),</span>
+<span id="cb26-60"><a href="#cb26-60" aria-hidden="true" tabindex="-1"></a>  c<span class="op">=</span>(perlin_data <span class="op">*</span> size_multiplier),</span>
+<span id="cb26-61"><a href="#cb26-61" aria-hidden="true" tabindex="-1"></a>  cmap<span class="op">=</span>cmap</span>
+<span id="cb26-62"><a href="#cb26-62" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb26-63"><a href="#cb26-63" aria-hidden="true" tabindex="-1"></a>apply_fig_settings(fig, ax)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-fig-show="hold" data-execution_count="25">
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-26-output-1.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-26-output-2.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display quarto-layout-cell" style="flex-basis: 33.3%;justify-content: center;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="intro_pyart1_files/figure-html/cell-26-output-3.png" class="img-fluid figure-img" width="304"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<p>The uses for Perlin noise can also be more subtle. For example, in my <a href="https://www.gmschroeder.com/gen_art/coastlines/">Coastlines</a> system, I used 1D Perlin noise to smoothly vary the transparency and distributions of the points that make up the narrow vertical lines.</p>
+<p>We can also make improvements from a software engineering perspective; for example, you can</p>
+<ul>
+<li>Create functions for scanning parameters.</li>
+<li>Create a separate module for your generative art functions so they’re easy to reuse across different projects.</li>
+<li>Develop a workflow for scanning parameters and saving the generated plots (make sure the scans are reproducible!).</li>
+</ul>
+<p>Using good software engineering practices becomes crucial as systems become more complex - otherwise, it becomes difficult to explore the system and reproduce desired outputs.</p>
+<p>On the subject of reproducibility, I used Python 3.11.9 for this tutorial with these package versions:</p>
+<pre><code>matplotlib==3.9.0
+noise==1.2.2
+numpy==2.0.0</code></pre>
+</section>
+<section id="additional-resources" class="level2">
+<h2 class="anchored" data-anchor-id="additional-resources">Additional resources</h2>
+<p>During my search, I found a couple of introductory tutorials for generative art in Python:</p>
+<ul>
+<li><p><a href="https://www.generativehut.com/post/robots-and-generative-art-and-python-oh-my">Geoffrey Bradway’s tutorial</a> on creating art based on Voronoi diagrams</p></li>
+<li><p><a href="https://nrennie.rbind.io/blog/making-art-python-plotnine/">Nicola Rennie’s tutorial</a> using another Python plotting library, <code>plotnine</code></p></li>
+</ul>
+<p>There are also lots of tutorials using <a href="https://docs.python.org/3/library/turtle.html">turtle graphics</a>, rather than scientific/data visualisation libraries.</p>
+<p>Most generative art advice is also applicable to any programming language - here are some of my favourite essays:</p>
+<ul>
+<li><p><a href="https://www.generativehut.com/post/how-to-make-generative-art-feel-natural">Ben Kovach: How to make generative art feel natural</a></p></li>
+<li><p><a href="https://www.tylerxhobbs.com/words/categories/essays">Tyler Hobb’s essays</a></p></li>
+</ul>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">License</h2>
+<p><a href="https://creativecommons.org/licenses/by/4.0/">CC-BY</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left"><span class="faux-block">© Gabrielle Schroeder, 2023-2024</span> <span>Website made with <a href="https://quarto.org/"><strong>Quarto</strong></a></span></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/gmschroe">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/gabrielleschroeder">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://fosstodon.org/@gmschroe">
+      <i class="bi bi-mastodon" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=F82b47YAAAAJ&amp;hl=en"><i class="ai  ai-google-scholar"></i></a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+
+
+
+</body></html>

@@ -26,5 +26,11 @@
       "/data_science/seizure-pathways/index.html",
       "/data_science/epilepsy-abnormalities/index.html"
     ]
+  },
+  {
+    "listing": "/blog.html",
+    "items": [
+      "/blog/intro_pyart1.html"
+    ]
   }
 ]
