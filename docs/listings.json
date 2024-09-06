@@ -2,6 +2,7 @@
   {
     "listing": "/data_vis.html",
     "items": [
+      "/data_vis/vfsg-noise-solution/index.html",
       "/data_vis/vfsg-gdri/index.html",
       "/data_vis/vfsg-impact/index.html",
       "/data_vis/macros-map/index.html",
@@ -9,6 +10,12 @@
       "/data_vis/tidy-tuesday/index.html",
       "/data_vis/vfsg-who/index.html",
       "/data_vis/gardening-covid/index.html"
+    ]
+  },
+  {
+    "listing": "/software.html",
+    "items": [
+      "/software/rsecon24-requirements/index.html"
     ]
   },
   {

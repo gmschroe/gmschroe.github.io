@@ -105,6 +105,27 @@
     "text": "Gabrielle M. Schroeder\n\n\nData Science - Data Visualisation - Software Engineering\n\n\n  \n    \n  \n  \n\nHi, I’m Gabrielle. I am a research software engineer and data visualisation enthusiast from Newcastle upon Tyne, UK.\nRead more about me or see examples of my data science, data visualisation, and generative art projects."
   },
   {
+    "objectID": "software/rsecon24-requirements/index.html",
+    "href": "software/rsecon24-requirements/index.html",
+    "title": "RSECon24: Requirements capture",
+    "section": "",
+    "text": "As a research software engineer, one of my key responsibilities is determining a project’s requirements based on the needs and priorities of my collaborators. At the 2024 Research Software Engineering Conference (RSECon24), I had the opportunity to present this talk on requirements capture, using one of our team’s more complex projects as an example."
+  },
+  {
+    "objectID": "software/rsecon24-requirements/index.html#slides",
+    "href": "software/rsecon24-requirements/index.html#slides",
+    "title": "RSECon24: Requirements capture",
+    "section": "Slides",
+    "text": "Slides\nDownload PDF file."
+  },
+  {
+    "objectID": "software/rsecon24-requirements/index.html#abstract",
+    "href": "software/rsecon24-requirements/index.html#abstract",
+    "title": "RSECon24: Requirements capture",
+    "section": "Abstract",
+    "text": "Abstract\nSolving the right problems: Requirements capture for large-scale, evolving research software\nA key challenge in designing sustainable research software is evaluating and meeting ongoing user needs. OpenScan is a National Institute for Health and Care Research Innovation Observatory (NIHRIO) project that collects, standardises, analyses, and publishes international clinical trial and medical device data. Since OpenScan’s initial development, NIHRIO has faced challenges with maintaining, expanding, and fully utilising the project for their research, in part due to its complex technical stack and Amazon Web Services (AWS) infrastructure.\nNIHRIO enlisted the Newcastle University RSE Team to update and re-design components of OpenScan to address these issues. We began by evaluating and documenting the design, including how NIHRIO currently uses OpenScan. We then captured the long-term requirements of NIHRIO’s developers and researchers. This process highlighted that, in addition to NIHRIO’s stated requirements, we needed to address challenges with account management, documentation, and reproducible workflows.\nIn this talk, we discuss capturing OpenScan2’s requirements using interviews, user stories, and work packages. We highlight one of the workflow challenges that we uncovered: updating the web scrapers that collect OpenScan’s data. Finally, we show how we designed new solutions to address these barriers.\nOpenScan’s redesign demonstrates the importance of requirements capture when developing and (re-)designing research software. Ultimately, ensuring we solve the right problems will help make OpenScan a sustainable resource that enables innovative research on medical progress."
+  },
+  {
     "objectID": "blog/intro_pyart1.html",
     "href": "blog/intro_pyart1.html",
     "title": "Introduction to generative art in Python using Perlin noise",
@@ -185,6 +206,20 @@
     "objectID": "data_vis.html#projects",
     "href": "data_vis.html#projects",
     "title": "Data visualisation",
+    "section": "Projects",
+    "text": "Projects"
+  },
+  {
+    "objectID": "software.html",
+    "href": "software.html",
+    "title": "Research software",
+    "section": "",
+    "text": "As a research software engineer (RSE) at Newcastle university, I develop software for a variety of research projects."
+  },
+  {
+    "objectID": "software.html#projects",
+    "href": "software.html#projects",
+    "title": "Research software",
     "section": "Projects",
     "text": "Projects"
   },
@@ -271,6 +306,41 @@
     "title": "Macronutrients Map",
     "section": "Layout",
     "text": "Layout\nThis visualisation uses a dimensionality technique called t-distributed Stochastic Neighbour Embedding (t-SNE), which embeds data in a small (e.g., two) number of dimensions to make it easier to visualise. The algorithm tries to optimise the new layout so that similar observations (here, foods) are placed close together. I based the similarity of the different foods off of their relative amounts of macronutrients and their calories per 100 g. Using relative macronutrient content (e.g., 20% protein) rather than the absolute macronutrient values (e.g., 10 g protein per 100 g) means that non-caloric content, such as water, is ignored for the embedding. I also normalised these features so that higher-magnitude features (such as calories) did not have a greater impact on food similarity.\nt-SNE is not deterministic - you can get different embeddings depending on where you first place each point. It also has a parameter, perplexity, that controls how much the algorithm focuses on nearby versus global similarities. To find an embedding that worked well for this visualisation, I systematically tried different starting configurations and perplexity values. I also experimented with scaling how much calories contributed to food similarity, as I wanted the layout to be primarily driven by the macronutrient content, with calories further separating foods with similar macronutrients. Ultimately, I divided the normalised calories by four to decrease their impact on the embedding.\nThe initial t-SNE embedding that I selected looked something like this:\n\n\n\n\n\nThis plot is pretty, but difficult to interact with because of the overlap between different foods, especially with the point size scaled by calories. I therefore used the R package {packcircles} to repel nearby points, resulting in a final layout without overlapping points. I also flipped the layout to work better with my text annotations - rotated or flipped embeddings are equivalent since they have the same distances between points. Here’s a non-interactive version of the final, annotated layout:\n\n\n\n\n\nWhile making this chart, I searched for any similar visualisations. I didn’t find any maps using these exact features, but there is a published static t-SNE embedding of USDA food data that uses the complete nutritional information (including micronutrient content such as vitamins). However, there are many more types of embedding approaches, so I may have missed other macronutrient representations - if you find any, I would love to see them!"
+  },
+  {
+    "objectID": "data_vis/vfsg-noise-solution/index.html",
+    "href": "data_vis/vfsg-noise-solution/index.html",
+    "title": "Viz for Social Good: Noise Solution",
+    "section": "",
+    "text": "Despite being short on time this month, I couldn’t resist participating in VFSG’s project with Noise Solution, a charity based in England that uses music mentoring programmes to transform the lives of at risk youth.\nFor my submission, I focused on visualising how participants’ wellbeing changed from the start to the end of the programme:"
+  },
+  {
+    "objectID": "data_vis/vfsg-noise-solution/index.html#design-choices",
+    "href": "data_vis/vfsg-noise-solution/index.html#design-choices",
+    "title": "Viz for Social Good: Noise Solution",
+    "section": "Design choices",
+    "text": "Design choices\nFor this project, I was inspired by the music theme to visualise the data in the shape of an old-school music player ring. Each point and line maps onto a set of Noise Solution sessions (and the corresponding participant), which helps emphasise the impact of the programme on individual people.\nNoise Solution’s branding also played a large role in my design. In addition to some of Noise Solution’s brand colours (purple, near-black, light grey, and white), I took inspiration from the photographs on their website, many of which have bright blues, teals, pinks, and oranges from coloured lights. Since I don’t have a license for Noise Solution’s brand font, Roc Grotesk, I used a similar font with an Open Font License, DM Sans.\nAs part of my design process, I created a mood board for inspiration:\n\n\n\n\n\nThe title references a music concept - matching a beat or rhythm - that also emphasises Noise Solution’s mission: by choosing to focus on mental wellbeing, they help their participants become more optimistic (or upbeat)."
+  },
+  {
+    "objectID": "data_vis/vfsg-noise-solution/index.html#possible-next-steps",
+    "href": "data_vis/vfsg-noise-solution/index.html#possible-next-steps",
+    "title": "Viz for Social Good: Noise Solution",
+    "section": "Possible next steps",
+    "text": "Possible next steps\nOne of Noise Solution’s requests that I didn’t have time to fulfill was to make the visualisation interactive. There are some options for this approach in R (e.g., {plotly} and {shiny}), and I’m also keen to learn Javascript so that I can develop custom interactive visualisations for the web.\nWhile my chart choice emphasises the wellbeing change of each individual, it doesn’t accurately show the distribution of changes across all participants. As such, this visualisation would be complemented by an additional chart type that shows the distribution of wellbeing changes."
+  },
+  {
+    "objectID": "data_vis/vfsg-noise-solution/index.html#tools",
+    "href": "data_vis/vfsg-noise-solution/index.html#tools",
+    "title": "Viz for Social Good: Noise Solution",
+    "section": "Tools",
+    "text": "Tools\nI created this visualisation using R (code here) and used Figma for the text and final layout."
+  },
+  {
+    "objectID": "data_vis/vfsg-noise-solution/index.html#license",
+    "href": "data_vis/vfsg-noise-solution/index.html#license",
+    "title": "Viz for Social Good: Noise Solution",
+    "section": "License",
+    "text": "License\nThe code for this project is licensed under the MIT License. The visualisations and write-up are licensed under CC-BY-NC."
   },
   {
     "objectID": "data_vis/gardening-covid/index.html",
