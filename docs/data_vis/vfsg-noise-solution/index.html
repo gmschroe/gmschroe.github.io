@@ -89,29 +89,36 @@ ul.task-list li input[type="checkbox"] {
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
-  <li class="nav-item">
-    <a class="nav-link" href="../../data_science.html" rel="" target="">
- <span class="menu-text">DATA SCIENCE</span></a>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-span-classheaderuimainprojectsspan" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text"><span class="headerUImain">Projects</span></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-span-classheaderuimainprojectsspan">    
+        <li>
+    <a class="dropdown-item" href="../../data_science.html" rel="" target="">
+ <span class="dropdown-text">Data science</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../data_vis.html" rel="" target="">
- <span class="menu-text">DATA VISUALISATION</span></a>
+        <li>
+    <a class="dropdown-item" href="../../data_vis.html" rel="" target="">
+ <span class="dropdown-text">Data visualisation</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../software.html" rel="" target="">
- <span class="menu-text">SOFTWARE</span></a>
+        <li>
+    <a class="dropdown-item" href="../../software.html" rel="" target="">
+ <span class="dropdown-text">Software</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../../gen_art.html" rel="" target="">
- <span class="menu-text">ART</span></a>
+        <li>
+    <a class="dropdown-item" href="../../gen_art.html" rel="" target="">
+ <span class="dropdown-text">Art</span></a>
   </li>  
+    </ul>
+  </li>
   <li class="nav-item">
     <a class="nav-link" href="../../blog.html" rel="" target="">
- <span class="menu-text">BLOG</span></a>
+ <span class="menu-text"><span class="headerUImain">Blog</span></span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../about.html" rel="" target="">
- <span class="menu-text">ABOUT</span></a>
+ <span class="menu-text"><span class="headerUImain">About</span></span></a>
   </li>  
 </ul>
             <div class="quarto-navbar-tools">
@@ -167,7 +174,7 @@ ul.task-list li input[type="checkbox"] {
 <p>For my submission, I focused on visualising how participants’ wellbeing changed from the start to the end of the programme:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="noise_solution_final_vis_low_res.png" class="lightbox" data-gallery="submission" title=""><img src="noise_solution_final_vis_low_res.png" class="img-fluid figure-img"></a></p>
+<p><a href="noise_solution_final_vis_low_res.png" class="lightbox" title="" data-gallery="submission"><img src="noise_solution_final_vis_low_res.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <section id="design-choices" class="level2">
@@ -177,7 +184,7 @@ ul.task-list li input[type="checkbox"] {
 <p>As part of my design process, I created a mood board for inspiration:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><a href="noise_solution_mood_board.png" class="lightbox" data-gallery="moodboard" title=""><img src="noise_solution_mood_board.png" class="img-fluid figure-img"></a></p>
+<p><a href="noise_solution_mood_board.png" class="lightbox" title="" data-gallery="moodboard"><img src="noise_solution_mood_board.png" class="img-fluid figure-img"></a></p>
 </figure>
 </div>
 <p>The title references a music concept - matching a beat or rhythm - that also emphasises Noise Solution’s mission: by choosing to focus on mental wellbeing, they help their participants become more optimistic (or upbeat).</p>
@@ -466,7 +473,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     </div>
   </div>
 </footer>
-<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","openEffect":"zoom","descPosition":"bottom","loop":true});</script>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","loop":true,"descPosition":"bottom","openEffect":"zoom"});</script>
 
 
 
