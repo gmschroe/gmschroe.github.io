@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.361">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Gabrielle M. Schroeder">
+<meta name="dcterms.date" content="2024-12-05">
+
+<title>Viz for Social Good: Association for the Prevention of Torture</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/academicons-1.9.2/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/academicons-1.9.2/size.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html" rel="" target="">
+ <span class="menu-text"><span id="gms">GMS</span></span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-span-classheaderuimainprojectsspan" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text"><span class="headerUImain">Projects</span></span>
+    </a>
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-span-classheaderuimainprojectsspan">    
+        <li>
+    <a class="dropdown-item" href="../../data_science.html" rel="" target="">
+ <span class="dropdown-text">Data science</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../data_vis.html" rel="" target="">
+ <span class="dropdown-text">Data visualisation</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../software.html" rel="" target="">
+ <span class="dropdown-text">Software</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../gen_art.html" rel="" target="">
+ <span class="dropdown-text">Art</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog.html" rel="" target="">
+ <span class="menu-text"><span class="headerUImain">Blog</span></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html" rel="" target="">
+ <span class="menu-text"><span class="headerUImain">About</span></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Viz for Social Good: Association for the Prevention of Torture</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">volunteer project</div>
+    <div class="quarto-category">VFSG</div>
+    <div class="quarto-category">D3.js</div>
+    <div class="quarto-category">R</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Gabrielle M. Schroeder </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 5, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p>I created these visualisations for the <a href="https://www.vizforsocialgood.com/join-a-project/2024/7/26/apt">November 2024 Viz For Social Good (VFSG) project</a> with the <a href="https://www.apt.ch/">Association for the Prevention of Torture (APT)</a>.</p>
+<p>APT asked VFSG volunteers to visualise data on several legal measures, such as United Nations standards, that help prevent torture. For each legal measure, they provided data on whether each of 196 tracked states (i.e., sovereign entities such as countries) have implemented each measure and, if so, the year the state implemented it.</p>
+<p>APT emphasised that the visualisations needed to be positive and celebrate progress. They also wanted to provide opportunities to compare legal measures, global regions, and states, but without “naming and shaming” regions or states that hadn’t made as much progress. They sought interactive visualisations to add to their website, but also wanted the option to use them in a static form for publications.</p>
+<section id="visualisations" class="level2">
+<h2 class="anchored" data-anchor-id="visualisations">Visualisations</h2>
+<p>The webpage with the interactive visualisations is <a href="https://www.gmschroeder.com/vfsg-apt/">here</a>.</p>
+<section id="screenshots" class="level3">
+<h3 class="anchored" data-anchor-id="screenshots">Screenshots</h3>
+<p><strong>Different regions</strong></p>
+<div style="display: grid;grid-template-columns: repeat(auto-fill, minmax(150px, 250px));grid-gap: 1em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r01.png" class="lightbox" data-gallery="regions"><img src="images/regions/r01.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r02.png" class="lightbox" data-gallery="regions"><img src="images/regions/r02.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r03.png" class="lightbox" data-gallery="regions"><img src="images/regions/r03.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r04.png" class="lightbox" data-gallery="regions"><img src="images/regions/r04.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r05.png" class="lightbox" data-gallery="regions"><img src="images/regions/r05.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/regions/r06.png" class="lightbox" data-gallery="regions"><img src="images/regions/r06.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+<p>I also created a stand-alone version of the “all regions” view that fills the available vertical space:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/all_regions_static.png" class="lightbox" data-gallery="static"><img src="images/all_regions_static.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<p><strong>Different legal measures</strong></p>
+<div style="display: grid;grid-template-columns: repeat(auto-fill, minmax(150px, 250px));grid-gap: 1em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m01.png" class="lightbox" data-gallery="measures"><img src="images/measures/m01.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m02.png" class="lightbox" data-gallery="measures"><img src="images/measures/m02.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m03.png" class="lightbox" data-gallery="measures"><img src="images/measures/m03.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m04.png" class="lightbox" data-gallery="measures"><img src="images/measures/m04.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m05.png" class="lightbox" data-gallery="measures"><img src="images/measures/m05.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m06.png" class="lightbox" data-gallery="measures"><img src="images/measures/m06.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/measures/m07.png" class="lightbox" data-gallery="measures"><img src="images/measures/m07.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="data-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="data-decisions">Data decisions</h2>
+<p>To visualise progress over time, I computed the total number of states that had implemented each measure as of each year. This approach focuses on the cumulative progress that has been made, rather than when the legal measures were implemented in each state.</p>
+<p>I also combined APT’s two “National Preventive Mechanism” (NPM - a type of oversight system) measures into a single measure. NPMs take multiple stages to implement, and APT provided the date each state completed the first step (“designating” an NPM) and the last step (when the NPM becomes “operational”). I used this data to calculate the number of countries with a designated <em>and</em> operational NPM, as opposed to a designated <em>only</em> NPM, and treated these statuses as different levels of the same legal measure. Compared to reporting the total number of designated NPMs (regardless of whether they are operational or not), this approach allows us to easily see 1) how many designated NPMs need to become operational, and 2) see designated-only NPMS convert to fully operational NPMs over time.</p>
+<p>Consolidating this data left me with a total of seven different legal measures, two of which could also be partially implemented.</p>
+</section>
+<section id="design-decisions" class="level2">
+<h2 class="anchored" data-anchor-id="design-decisions">Design decisions</h2>
+<section id="overview" class="level3">
+<h3 class="anchored" data-anchor-id="overview">Overview</h3>
+<p>I found the dataset slightly overwhelming at first due to my unfamiliarity with the legal measures and technical terms. As such, I decided to start by introducing and summarising these different measures using accordion panels. These panels are collapsed by default, which avoids bombarding the audience with too much information at once.</p>
+<p>I also asked APT if they had a preferred way to group the different measures. They provided three different categories, which really helped me build a mental framework for understanding this data. I therefore used this same organisation in the introduction.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/accordion.png" class="lightbox" data-gallery="measures"><img src="images/accordion.png" class="img-fluid figure-img" width="300"></a></p>
+</figure>
+</div>
+<p>The subsequent two visualisations are then designed to give overviews of the progress made over time, with the first giving a high-level overview (number of states that have implemented each measure) and the second breaking down that data at the level of different states. I let interactivity take a back-seat in these visualisations - partly because of my skill gap (this was my first D3.js visualisation!), but also because I wanted the main messages to be readily accessible in a static format.</p>
+<p>While this post is about data vis, I’m also a bit of an English language nerd, so I’ll quickly point out a change I made to the legal measure terms: turning the nouns back into verbs (e.g., “prohibition” to “prohibit”, “ratification” to “ratify”). This verb-to-noun transformation is called “denominalisation”. The reverse - nominalisation - is useful in moderation or certain contexts (“(de)nominalisation” itself is a noun form of a verb!), and it’s often necessary in formal or legal documents. However, nominalisations can make writing less approachable, less animated, and more jargony. Some people have even labelled them <a href="https://archive.nytimes.com/opinionator.blogs.nytimes.com/2012/07/23/zombie-nouns/">“zombie nouns”</a> because of their potential to suck the life out of writing. Since this work was designed for a general audience, I went with the verb forms where possible, which had the added visualisation benefit of shortening my labels, too!</p>
+</section>
+<section id="colours" class="level3">
+<h3 class="anchored" data-anchor-id="colours">Colours</h3>
+<p>Throughout the webpage, I use colour to encode the different legal measures. To reinforce the legal measure categories, I used a different hue for each one: blue for the international standards, yellow for domestic law, and red for oversight systems. Lighter and darker shades of each hue then distinguish the legal measures within each category. These colours are based on APT’s blue and red/pink branding colours, with the addition of a complementary shade of yellow to provide three hues for the three categories.</p>
+</section>
+<section id="stacked-bar-chart" class="level3">
+<h3 class="anchored" data-anchor-id="stacked-bar-chart">Stacked bar chart</h3>
+<p>For the first visualisation, I use a stacked bar chart to show the total number of states that have implemented each legal measure versus time, with each bar colour corresponding to a different legal measure. This approach makes it more difficult to see trends in the individual measures, but emphasises the total number of commitments that have been made towards preventing torture, which was the key message I wanted to convey.</p>
+<p>I considered using an area chart instead of a bar chart, but decided on the latter to highlight the year-to-year changes. The bars also allowed me to use styling, such as gradients and selectively rounded edges, to give a layered effect to the visualisation. My aim was to give the impression that these legal actions are building a physical barrier to torture.</p>
+<p>I also added region filters to show the progress within each region, with the height of the y-axis proportional to the number of states to make it easier to compare region-level progress. For example, it’s easy to see that Europe’s bar chart is noticeably higher. The reference bar and text on the left provides the total number of states and the corresponding bar length.</p>
+</section>
+<section id="radial-bar-chart" class="level3">
+<h3 class="anchored" data-anchor-id="radial-bar-chart">Radial bar chart</h3>
+<p>The second visualisation breaks down this progress to the level of states by showing when each state implemented each legal measure. My idea for a radial layout originated from my original plan, which was to show all the legal measures as different circles in one plot. However, I quickly realised this wouldn’t fit a standard screen width and instead added a dropdown filter for the different measures. Even in this format, I decided to keep the radial layout as a more compact representation than a horizontal or vertical chart. The trade-off is that the radial layout makes exact comparisons more difficult, but my aim was to communicate general trends, rather than precise differences between countries and regions.</p>
+<p>I added gaps between the different regions to emphasise region differences, then put the states ordered alphabetically within each region, which makes states easier to find and keeps the order the same across indicators. There’s a simple tool-tip that reveals the name of each state when you hover over that bar (or gap, in the case of states that haven’t implemented a measure).</p>
+</section>
+</section>
+<section id="technical-details" class="level2">
+<h2 class="anchored" data-anchor-id="technical-details">Technical details</h2>
+<section id="tools" class="level3">
+<h3 class="anchored" data-anchor-id="tools">Tools</h3>
+<p>My goal for this project was to <em>finally</em> learn D3.js (not to mention Javascript). I first used my preferred data wrangling language, R, for data exploration and some initial transformations (like creating my custom NPM measure), then created the webpage and visualisations using HTML, CSS, Javascript, and D3.js. I wouldn’t have made it nearly as far without the newly released edition of <a href="https://www.manning.com/books/d3-js-in-action"><em>D3.js in Action</em></a> for guidance.</p>
+<p>All my code is available in a <a href="https://github.com/gmschroe/vfsg-apt/tree/main">GitHub repo</a>, but I’ll caveat that the code reflects both my inexperience and the project time constraints!</p>
+</section>
+<section id="technical-tricks" class="level3">
+<h3 class="anchored" data-anchor-id="technical-tricks">Technical tricks</h3>
+<p>I face a few technical challenges when implementing my planned design, and I learned that sometimes the easiest approach for creating custom designs is modifying the underlying data. When I say “modify”, I don’t mean changing the actual displayed values, but rather adding duplicate or extra entries that are used solely for styling or layouts.</p>
+<p>I first used this approach for the styling of the striped bars in the stacked bar chart. These bars need both a subtle gradient (to match the styling of the other bars and give the layered effect) and a pattern fill (to indicate that the measures were partially implemented). I spent hours trying to figure out how to combine these styles before realising I could just duplicate the corresponding entries in the data array. I used the first copy to add the stripe fill, then made the second copy (which I labelled as a duplicate) to add another, partially transparent element in the same location, allowing the stripes to be visible underneath.</p>
+<p>Meanwhile, in the radial bar chart, I wanted to add gaps to separate the different regions. To do so, I ensured the data was sorted by region, then detected the locations where the regions changed and added filler entries between them. As above, these additional entries were clearly labelled so I could detect them and make them invisible, leaving only the actual data displayed. I also gave the entries in each gap a unique “region” name (such as “spacer1”, “spacer2”, etc.). This approach allowed me to add a border around each region by making a donut chart of the number of states in each region - including in my spacer regions. I added this donut chart as a background, again hiding the spacer regions so only the actual data was visible.</p>
+<div style="display: grid;grid-template-columns: repeat(auto-fill, minmax(200px, 300px));grid-gap: 1em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/radial03.png" class="lightbox" data-gallery="spacerregions" title="Developing the donut chart of the regions."><img src="images/process/radial03.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Developing the donut chart of the regions.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/radial04.png" class="lightbox" data-gallery="spacerregions" title="Same donut chart with the “spacer” regions hidden."><img src="images/process/radial04.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Same donut chart with the “spacer” regions hidden.</figcaption>
+</figure>
+</div>
+</div>
+<p>The final technical trick that I’ll highlight was rotating the stripe fill in the radial bar chart. This rotation is needed to maintain consistent angles between the stripes and the bar edges - otherwise, the angles would be distractingly inconsistent, with stripes approximately parallel to the bar length in the worst-case scenarios. I had already computed the mapping from country to angle for the bars themselves, and could use the same angles to rotate my stripe pattern.</p>
+</section>
+</section>
+<section id="possible-improvements" class="level2">
+<h2 class="anchored" data-anchor-id="possible-improvements">Possible improvements</h2>
+<p>I ran out of time to implement everything I wanted to, and in particular had less time to work on the radial bar chart. Here’s some of the improvements I’d focus on next:</p>
+<ul>
+<li>Improving accessibility (e.g., ensuring the key data can be read using a screen reader).</li>
+<li>Adding a tooltip for the bar chart.</li>
+<li>Adding a timeline of major events (e.g., the dates different legal measures were adopted by the UN) to the bar chart x-axis and annotating these years on the relevant radial bar charts.</li>
+<li>Improving the tooltip for the radial bar chart to provide more information (e.g., dates) and visually indicate which state is being being hovered over.</li>
+<li>Experimenting with short labels or tick marks/dots to mark each state (which is especially important for marking states that haven’t implemented any measures).</li>
+<li>Adding a toggle to re-order the radial bar chart by implementation dates, rather than alphabetical order.</li>
+<li>Replacing the text explanation of the stripe pattern with a legend.</li>
+<li>Creating a state-level visualisation or table that indicates all of the legal measures that the state has implemented.</li>
+</ul>
+</section>
+<section id="in-progress-images-and-accidental-art" class="level2">
+<h2 class="anchored" data-anchor-id="in-progress-images-and-accidental-art">In-progress images (and accidental art)</h2>
+<div style="display: grid;grid-template-columns: repeat(auto-fill, minmax(150px, 300px));grid-gap: 1em;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/sketch1.jpg" class="lightbox" data-gallery="process" title="Early sketches."><img src="images/process/sketch1.jpg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Early sketches.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/sketch2.jpg" class="lightbox" data-gallery="process" title="I almost always end up sketching out some calculations, too."><img src="images/process/sketch2.jpg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">I almost always end up sketching out some calculations, too.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/rplots.png" class="lightbox" data-gallery="process" title="Some data exploration in R."><img src="images/process/rplots.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Some data exploration in R.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/start01.jpeg" class="lightbox" data-gallery="process" title="Initial encoding as step chart, demonstrating 1) the importance of the bar styling for this data, and 2) the ugly early stage when you just need to trust in the process."><img src="images/process/start01.jpeg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Initial encoding as step chart, demonstrating 1) the importance of the bar styling for this data, and 2) the ugly early stage when you just need to trust in the process.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/start02.jpeg" class="lightbox" data-gallery="process" title="Very spikey result produced by an early attempt at a custom bar shape."><img src="images/process/start02.jpeg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Very spikey result produced by an early attempt at a custom bar shape.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/gradient01.jpeg" class="lightbox" data-gallery="process" title="Initial custom curved bars and learning how to define gradients."><img src="images/process/gradient01.jpeg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Initial custom curved bars and learning how to define gradients.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/labels01.png" class="lightbox" data-gallery="process" title="Laying out an initial title, subtitle, and labels"><img src="images/process/labels01.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Laying out an initial title, subtitle, and labels</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/labels02.png" class="lightbox" data-gallery="process" title="Experimenting with the gradient. A vertical gradient doesn’t work well - it makes it look like each series extends behind the others to the base of the graph, giving the impression of a taller bar - and thus a larger value."><img src="images/process/labels02.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Experimenting with the gradient. A vertical gradient doesn’t work well - it makes it look like each series extends behind the others to the base of the graph, giving the impression of a taller bar - and thus a larger value.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/stripes01.png" class="lightbox" data-gallery="process" title="Learning how to create a striped fill; this result makes me want to do a monochromatic chart visualisation at some point."><img src="images/process/stripes01.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Learning how to create a striped fill; this result makes me want to do a monochromatic chart visualisation at some point.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/stripes02.png" class="lightbox" data-gallery="process" title="Now stripes with different colours."><img src="images/process/stripes02.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Now stripes with different colours.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/stripes03.png" class="lightbox" data-gallery="process" title="Realising it’s difficult to distinguish neighbouring striped bars."><img src="images/process/stripes03.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Realising it’s difficult to distinguish neighbouring striped bars.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/stripes04.png" class="lightbox" data-gallery="process" title="Experimenting with adding a border around striped bars to make the colours and edges clearer - it achieved that goal, but made these bars very salient (the opposite of the intended effect)."><img src="images/process/stripes04.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Experimenting with adding a border around striped bars to make the colours and edges clearer - it achieved that goal, but made these bars very salient (the opposite of the intended effect).</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/radial01.jpeg" class="lightbox" data-gallery="process" title="Moving on to the radial plot - a quick check that the radial layout works."><img src="images/process/radial01.jpeg" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Moving on to the radial plot - a quick check that the radial layout works.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/radial00.png" class="lightbox" data-gallery="process" title="I also quickly checked a vertical layout to confirm, as expected, the chart would need to be really tall to fit all the countries - the bars have to be very skinny to fit in this space."><img src="images/process/radial00.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">I also quickly checked a vertical layout to confirm, as expected, the chart would need to be really tall to fit all the countries - the bars have to be very skinny to fit in this space.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="images/process/radial02.png" class="lightbox" data-gallery="process" title="Initial radial layout without the region grouping."><img src="images/process/radial02.png" class="img-fluid figure-img"></a></p>
+<figcaption class="figure-caption">Initial radial layout without the region grouping.</figcaption>
+</figure>
+</div>
+</div>
+<p><br>
+<br>
+</p>
+<p><strong>License:</strong> <a href="https://creativecommons.org/licenses/by-nc/4.0/">CC BY-NC 4.0</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left"><span class="faux-block">© Gabrielle Schroeder, 2023-2024</span> <span>Website made with <a href="https://quarto.org/"><strong>Quarto</strong></a></span></div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      <ul class="footer-items list-unstyled">
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/gmschroe">
+      <i class="bi bi-github" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://www.linkedin.com/in/gabrielleschroeder">
+      <i class="bi bi-linkedin" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item compact">
+    <a class="nav-link" href="https://fosstodon.org/@gmschroe">
+      <i class="bi bi-mastodon" role="img">
+</i> 
+    </a>
+  </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="https://scholar.google.com/citations?user=F82b47YAAAAJ&amp;hl=en"><i class="ai  ai-google-scholar"></i></a>
+  </li>  
+</ul>
+    </div>
+  </div>
+</footer>
+<script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":true,"descPosition":"bottom"});</script>
+
+
+
+</body></html>
